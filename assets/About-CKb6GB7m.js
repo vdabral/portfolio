@@ -1,4 +1,4 @@
-import{c as i,u as n,j as e,B as o,D as c}from"./index-rzgmUWRa.js";import{S as x}from"./Section-iLHTzgUK.js";import{C as r}from"./Card-B8Za2P4F.js";/**
+import{c as i,u as n,j as e,B as o,D as c}from"./index-CQFbrjKA.js";import{S as x}from"./Section-B8ehcJok.js";import{C as r}from"./Card-BLqRNCoV.js";/**
  * @license lucide-react v0.344.0 - ISC
  *
  * This source code is licensed under the ISC license.
@@ -17,7 +17,7 @@ import{c as i,u as n,j as e,B as o,D as c}from"./index-rzgmUWRa.js";import{S as 
               relative w-64 h-64 md:w-80 md:h-80 mb-8 rounded-lg overflow-hidden
               before:absolute before:inset-0 before:border-2 before:rounded-lg before:translate-x-4 before:translate-y-4 before:z-0
               ${t==="dark"?"before:border-teal-500/50":"before:border-teal-600/50"}
-            `,children:e.jsx("img",{src:"/Test.JPG",alt:"Profile",className:"w-full h-full object-cover object-center rounded-lg z-10 relative"})}),e.jsxs("div",{className:"flex flex-wrap gap-4 justify-center lg:justify-start",children:[e.jsx("div",{className:`
+            `,children:e.jsx("img",{src:"/portfolio/images/Test.JPG",alt:"Profile",className:"w-full h-full object-cover object-center rounded-lg z-10 relative"})}),e.jsxs("div",{className:"flex flex-wrap gap-4 justify-center lg:justify-start",children:[e.jsx("div",{className:`
               py-3 px-6 rounded-full text-sm font-medium
               ${t==="dark"?"bg-slate-700 text-white":"bg-gray-100 text-gray-800"}
             `,children:"MERN Stack"}),e.jsx("div",{className:`
