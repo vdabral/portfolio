@@ -56,9 +56,10 @@ const Button: React.FC<ButtonProps> = ({
       className={`
         ${sizeClasses[size]}
         ${getVariantClasses()}
-        rounded-md font-medium transition-all duration-300 ease-in-out
-        focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2
-        flex items-center justify-center
+        rounded-xl font-semibold transition-all duration-300 ease-in-out
+        focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-offset-2
+        ${theme === 'dark' ? 'focus:ring-offset-slate-900' : 'focus:ring-offset-white'}
+        flex items-center justify-center cursor-pointer select-none
         ${className}
       `}
       {...props}

@@ -259,10 +259,7 @@ const Footer: React.FC = () => {
 
           {/* Copyright */}
           <p className={`text-xs text-center ${theme === 'dark' ? 'text-gray-600' : 'text-gray-400'}`}>
-            © {new Date().getFullYear()} Vaibhav Dabral. Built with{' '}
-            <span className={theme === 'dark' ? 'text-teal-500' : 'text-teal-600'}>React</span>,{' '}
-            <span className={theme === 'dark' ? 'text-teal-500' : 'text-teal-600'}>Vite</span> &amp;{' '}
-            <span className={theme === 'dark' ? 'text-teal-500' : 'text-teal-600'}>Framer Motion</span>. All rights reserved.
+            © {new Date().getFullYear()} Vaibhav Dabral. All rights reserved.
           </p>
         </div>
 

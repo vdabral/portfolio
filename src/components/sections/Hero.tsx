@@ -12,6 +12,7 @@ const Hero: React.FC = () => {
   const [typedText, setTypedText] = useState('');
   const [currentPhrase, setCurrentPhrase] = useState(0);
   const [isTypingComplete, setIsTypingComplete] = useState(false);
+  const [activeHeroBtn, setActiveHeroBtn] = useState<'work' | 'resume' | 'contact'>('work');
 
   // Use refs to persist variables between renders
   const isDeleting = useRef(false);
@@ -281,59 +282,64 @@ const Hero: React.FC = () => {
 
             {/* Buttons section */}
             <motion.div
-              className="flex flex-col sm:flex-row gap-4 md:gap-6 pt-4"
+              className="flex flex-wrap items-center justify-center gap-3 md:gap-5 pt-4"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1.1 }}
             >
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }}>
                 <Button
                   onClick={() => {
+                    setActiveHeroBtn('work');
                     const projectsSection = document.getElementById('projects');
                     if (projectsSection) {
                       projectsSection.scrollIntoView({ behavior: 'smooth' });
                     }
                   }}
-                  variant="primary"
+                  variant="outline"
                   size="lg"
                   icon={<ArrowRight size={20} />}
                   className={`
-                    group relative overflow-hidden backdrop-blur-sm shadow-2xl
-                    ${theme === 'dark'
-                      ? 'bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-teal-400 hover:to-cyan-400 shadow-teal-500/25'
-                      : 'bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-500 hover:to-cyan-500 shadow-teal-600/25'
+                    rounded-xl font-semibold transition-all duration-300 relative overflow-hidden cursor-pointer backdrop-blur-sm border-2
+                    ${activeHeroBtn === 'work'
+                      ? 'bg-gradient-to-r from-teal-500 to-cyan-500 text-white border-teal-300 ring-2 ring-teal-400/50 shadow-xl shadow-teal-500/30'
+                      : theme === 'dark'
+                        ? 'border-teal-500/40 text-teal-400 bg-slate-800/50 hover:bg-teal-500/10 hover:border-teal-400'
+                        : 'border-teal-600/40 text-teal-700 bg-white/80 hover:bg-teal-50 hover:border-teal-600'
                     }
                   `}
                 >
-                  <span className="relative z-10 group-hover:translate-x-1 transition-transform duration-200">
-                    View My Work
-                  </span>
+                  <span className="relative z-10">View My Work</span>
                 </Button>
               </motion.div>
 
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }}>
                 <Button
                   onClick={() => {
+                    setActiveHeroBtn('resume');
                     window.open('https://drive.google.com/file/d/1XKJvep5MuimcMNJ66Wn94HxIlpYnwelG/view?usp=sharing', '_blank');
                   }}
                   variant="outline"
                   size="lg"
                   icon={<Download size={18} />}
                   className={`
-                    backdrop-blur-sm border-2 transition-all duration-300
-                    ${theme === 'dark'
-                      ? 'border-teal-400/50 text-teal-400 hover:bg-teal-400/10 hover:border-teal-400'
-                      : 'border-teal-600/50 text-teal-600 hover:bg-teal-600/10 hover:border-teal-600'
+                    rounded-xl font-semibold transition-all duration-300 relative overflow-hidden cursor-pointer backdrop-blur-sm border-2
+                    ${activeHeroBtn === 'resume'
+                      ? 'bg-gradient-to-r from-teal-500 to-cyan-500 text-white border-teal-300 ring-2 ring-teal-400/50 shadow-xl shadow-teal-500/30'
+                      : theme === 'dark'
+                        ? 'border-teal-500/40 text-teal-400 bg-slate-800/50 hover:bg-teal-500/10 hover:border-teal-400'
+                        : 'border-teal-600/40 text-teal-700 bg-white/80 hover:bg-teal-50 hover:border-teal-600'
                     }
                   `}
                 >
-                  Download Resume
+                  <span className="relative z-10">Download Resume</span>
                 </Button>
               </motion.div>
 
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }}>
                 <Button
                   onClick={() => {
+                    setActiveHeroBtn('contact');
                     const contactSection = document.getElementById('contact');
                     if (contactSection) {
                       contactSection.scrollIntoView({ behavior: 'smooth' });
@@ -342,14 +348,16 @@ const Hero: React.FC = () => {
                   variant="outline"
                   size="lg"
                   className={`
-                    backdrop-blur-sm border-2 transition-all duration-300
-                    ${theme === 'dark'
-                      ? 'border-cyan-400/50 text-cyan-400 hover:bg-cyan-400/10 hover:border-cyan-400'
-                      : 'border-cyan-600/50 text-cyan-600 hover:bg-cyan-600/10 hover:border-cyan-600'
+                    rounded-xl font-semibold transition-all duration-300 relative overflow-hidden cursor-pointer backdrop-blur-sm border-2
+                    ${activeHeroBtn === 'contact'
+                      ? 'bg-gradient-to-r from-teal-500 to-cyan-500 text-white border-teal-300 ring-2 ring-teal-400/50 shadow-xl shadow-teal-500/30'
+                      : theme === 'dark'
+                        ? 'border-cyan-500/40 text-cyan-400 bg-slate-800/50 hover:bg-cyan-500/10 hover:border-cyan-400'
+                        : 'border-cyan-600/40 text-cyan-700 bg-white/80 hover:bg-cyan-50 hover:border-cyan-600'
                     }
                   `}
                 >
-                  Contact Me
+                  <span className="relative z-10">Contact Me</span>
                 </Button>
               </motion.div>
             </motion.div>

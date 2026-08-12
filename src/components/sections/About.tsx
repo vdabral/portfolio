@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import Section from '../ui/Section';
 import Card from '../ui/Card';
 import Button from '../ui/Button';
@@ -42,6 +42,9 @@ const AnimatedCounter: React.FC<{ target: number; suffix?: string; prefix?: stri
 const About: React.FC = () => {
   const { theme } = useTheme();
   const isDark = theme === 'dark';
+
+  const [activeTab, setActiveTab] = useState<'all' | 'experience' | 'education'>('all');
+  const [activeActionBtn, setActiveActionBtn] = useState<'resume' | 'projects' | null>(null);
 
   const experienceItems = [
     {
@@ -153,7 +156,7 @@ const About: React.FC = () => {
             whileHover={{ scale: 1.015 }}
             transition={{ duration: 0.3 }}
           >
-            {/* Single soft glow ring, no double-inset clutter */}
+            {/* Single soft glow ring */}
             <div className={`
               absolute -inset-3 rounded-[28px] blur-xl opacity-60 group-hover:opacity-90 transition-opacity duration-500
               bg-gradient-to-br from-teal-500/30 via-cyan-500/20 to-transparent
@@ -171,21 +174,6 @@ const About: React.FC = () => {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent" />
             </div>
-
-            {/* Currently at badge — inline, not overlapping neighboring content */}
-            {/* <div
-              className={`
-                absolute bottom-3 left-3 right-3 px-3.5 py-2 rounded-xl text-xs font-semibold shadow-lg border backdrop-blur-md
-                flex items-center gap-2
-                ${isDark
-                  ? 'bg-slate-900/80 text-teal-300 border-teal-500/30'
-                  : 'bg-white/90 text-teal-700 border-teal-500/30'
-                }
-              `}
-            >
-              <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse shrink-0" />
-              {/* <span className="truncate">Currently @ Mindrops Solutions</span> */}
-            {/* </div> */}
           </motion.div>
 
           {/* Skill tags */}
@@ -226,15 +214,18 @@ const About: React.FC = () => {
           >
             <Button
               onClick={() => {
+                setActiveActionBtn('resume');
                 window.open('https://drive.google.com/file/d/1XKJvep5MuimcMNJ66Wn94HxIlpYnwelG/view?usp=sharing', '_blank');
               }}
               variant="outline"
               icon={<Download size={18} />}
               className={`
-                group relative overflow-hidden
-                ${isDark
-                  ? 'border-teal-500/50 text-teal-400 hover:bg-gradient-to-r hover:from-teal-500 hover:to-cyan-500 hover:text-white hover:border-transparent'
-                  : 'border-teal-500/50 text-teal-700 hover:bg-gradient-to-r hover:from-teal-500 hover:to-cyan-500 hover:text-white hover:border-transparent'
+                group relative overflow-hidden transition-all duration-300 border-2 rounded-xl cursor-pointer
+                ${activeActionBtn === 'resume'
+                  ? 'bg-gradient-to-r from-teal-500 to-cyan-500 text-white border-teal-300 ring-2 ring-teal-400/50 shadow-xl shadow-teal-500/30'
+                  : isDark
+                    ? 'border-teal-500/40 text-teal-400 bg-slate-800/50 hover:bg-teal-500/10 hover:border-teal-400'
+                    : 'border-teal-600/40 text-teal-700 bg-white/80 hover:bg-teal-50 hover:border-teal-600'
                 }
               `}
             >
@@ -243,13 +234,19 @@ const About: React.FC = () => {
 
             <Button
               onClick={() => {
+                setActiveActionBtn('projects');
                 document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
               }}
               variant="outline"
               icon={<FolderGit2 size={18} />}
               className={`
-                group relative overflow-hidden bg-gradient-to-r from-teal-500 to-cyan-500 text-white border-transparent
-                hover:shadow-lg hover:shadow-teal-500/30 hover:-translate-y-0.5
+                group relative overflow-hidden transition-all duration-300 border-2 rounded-xl cursor-pointer
+                ${activeActionBtn === 'projects' || activeActionBtn === null
+                  ? 'bg-gradient-to-r from-teal-500 to-cyan-500 text-white border-teal-300 ring-2 ring-teal-400/50 shadow-xl shadow-teal-500/30'
+                  : isDark
+                    ? 'border-teal-500/40 text-teal-400 bg-slate-800/50 hover:bg-teal-500/10 hover:border-teal-400'
+                    : 'border-teal-600/40 text-teal-700 bg-white/80 hover:bg-teal-50 hover:border-teal-600'
+                }
               `}
             >
               <span className="relative z-10">View Projects</span>
@@ -257,9 +254,9 @@ const About: React.FC = () => {
           </motion.div>
         </motion.div>
 
-        {/* Right column: Bio and experience */}
+        {/* Right column: Bio, Experience & Education with Tabs */}
         <motion.div
-          className="space-y-14"
+          className="space-y-12"
           initial={{ opacity: 0, x: 50 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
@@ -295,150 +292,206 @@ const About: React.FC = () => {
             </div>
           </div>
 
-          {/* Experience section */}
+          {/* Interactive Filter/Tab Navigation Bar */}
           <div>
-            <h3
-              className={`text-2xl md:text-3xl font-bold mb-8 flex items-center gap-3 ${isDark ? 'text-white' : 'text-gray-900'}`}
-            >
-              <Briefcase className={`w-6 h-6 md:w-7 md:h-7 ${isDark ? 'text-teal-400' : 'text-teal-600'}`} />
-              Experience
-            </h3>
-
-            {/* Modern Card List without vertical timeline line */}
-            <div className="space-y-6">
-              {experienceItems.map((item, index) => {
-                const ItemIcon = item.icon;
-                return (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                    whileHover={{ y: -3 }}
-                  >
-                    <Card
+            <div className="flex items-center gap-2 mb-6">
+              <span className={`text-xs font-semibold uppercase tracking-wider ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
+                Filter View:
+              </span>
+              <div className={`
+                inline-flex items-center gap-1.5 p-1 rounded-2xl border backdrop-blur-md
+                ${isDark ? 'bg-slate-800/80 border-slate-700/80' : 'bg-gray-100 border-gray-200'}
+              `}>
+                {[
+                  { id: 'all', label: 'All', icon: Sparkles },
+                  { id: 'experience', label: 'Experience', icon: Briefcase },
+                  { id: 'education', label: 'Education', icon: Award },
+                ].map((tab) => {
+                  const TabIcon = tab.icon;
+                  const isActive = activeTab === tab.id;
+                  return (
+                    <button
+                      key={tab.id}
+                      onClick={() => setActiveTab(tab.id as 'all' | 'experience' | 'education')}
                       className={`
-                        p-6 md:p-7 transition-all duration-300 group relative overflow-hidden
-                        ${isDark
-                          ? 'bg-slate-800/60 border-slate-700/60 hover:border-teal-500/50 hover:shadow-xl hover:shadow-teal-500/10'
-                          : 'bg-white border-gray-200 hover:border-teal-500/50 hover:shadow-xl hover:shadow-teal-500/10'
+                        relative px-4 py-2 rounded-xl text-xs md:text-sm font-semibold transition-all duration-300 flex items-center gap-2 outline-none select-none cursor-pointer border
+                        ${isActive
+                          ? isDark
+                            ? 'text-white bg-gradient-to-r from-teal-500 to-cyan-500 border-teal-300 ring-2 ring-teal-400/40 shadow-lg shadow-teal-500/25'
+                            : 'text-white bg-gradient-to-r from-teal-600 to-cyan-600 border-teal-400 ring-2 ring-teal-500/40 shadow-lg shadow-teal-600/25'
+                          : isDark
+                            ? 'text-gray-400 border-transparent hover:text-white hover:bg-slate-700/60'
+                            : 'text-gray-600 border-transparent hover:text-gray-900 hover:bg-white/80'
                         }
                       `}
                     >
-                      <div className="flex items-start gap-4 md:gap-5">
-                        <div
-                          className={`
-                            p-3 md:p-3.5 rounded-2xl shrink-0 group-hover:scale-110 transition-transform duration-300
-                            ${isDark
-                              ? 'bg-teal-500/15 text-teal-400 border border-teal-500/30 shadow-lg shadow-teal-500/10'
-                              : 'bg-teal-50 text-teal-600 border border-teal-100 shadow-md shadow-teal-500/10'
-                            }
-                          `}
-                        >
-                          <ItemIcon size={22} />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
-                            <span
+                      <TabIcon size={15} className={isActive ? 'text-white' : ''} />
+                      <span>{tab.label}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeTab}
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -15 }}
+                transition={{ duration: 0.3 }}
+                className="space-y-12"
+              >
+                {/* Experience section */}
+                {(activeTab === 'all' || activeTab === 'experience') && (
+                  <div>
+                    <h3
+                      className={`text-2xl md:text-3xl font-bold mb-6 flex items-center gap-3 ${isDark ? 'text-white' : 'text-gray-900'}`}
+                    >
+                      <Briefcase className={`w-6 h-6 md:w-7 md:h-7 ${isDark ? 'text-teal-400' : 'text-teal-600'}`} />
+                      Experience
+                    </h3>
+
+                    <div className="space-y-6">
+                      {experienceItems.map((item, index) => {
+                        const ItemIcon = item.icon;
+                        return (
+                          <motion.div
+                            key={index}
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.5, delay: index * 0.1 }}
+                            whileHover={{ y: -3 }}
+                          >
+                            <Card
                               className={`
-                                text-xs font-semibold px-3 py-1 rounded-full
-                                ${isDark ? 'bg-teal-500/15 text-teal-400' : 'bg-teal-50 text-teal-700'}
+                                p-6 md:p-7 transition-all duration-300 group relative overflow-hidden
+                                ${isDark
+                                  ? 'bg-slate-800/60 border-slate-700/60 hover:border-teal-500/50 hover:shadow-xl hover:shadow-teal-500/10'
+                                  : 'bg-white border-gray-200 hover:border-teal-500/50 hover:shadow-xl hover:shadow-teal-500/10'
+                                }
                               `}
                             >
-                              {item.period}
-                            </span>
-                            {item.badge && (
-                              <span className={`
-                                text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1.5
-                                ${isDark ? 'bg-green-500/15 text-green-400 border border-green-500/30' : 'bg-green-50 text-green-700 border border-green-200'}
-                              `}>
-                                <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-                                {item.badge}
-                              </span>
-                            )}
-                          </div>
-                          <h4 className={`text-base md:text-lg font-bold mb-1 ${isDark ? 'text-white' : 'text-gray-900'}`}>
-                            {item.role}
-                          </h4>
-                          <p className={`font-semibold mb-3 text-sm ${isDark ? 'text-teal-400' : 'text-teal-600'}`}>
-                            {item.company}
-                          </p>
-                          <p className={`text-sm leading-relaxed ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                            {item.description}
-                          </p>
-                        </div>
-                      </div>
-                    </Card>
-                  </motion.div>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Education section */}
-          <div>
-            <h3
-              className={`text-2xl md:text-3xl font-bold mb-8 flex items-center gap-3 ${isDark ? 'text-white' : 'text-gray-900'}`}
-            >
-              <Award className={`w-6 h-6 md:w-7 md:h-7 ${isDark ? 'text-cyan-400' : 'text-cyan-600'}`} />
-              Education
-            </h3>
-            <div className="space-y-5">
-              {educationItems.map((item, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  whileHover={{ y: -2 }}
-                >
-                  <Card
-                    className={`
-                      p-6 md:p-7 transition-all duration-300 group relative overflow-hidden
-                      ${isDark
-                        ? 'bg-slate-800/60 border-slate-700/60 hover:border-cyan-500/40 hover:shadow-lg hover:shadow-cyan-500/5'
-                        : 'bg-white border-gray-200 hover:border-cyan-500/40 hover:shadow-lg hover:shadow-cyan-500/5'
-                      }
-                    `}
-                  >
-                    <div className="flex items-start gap-5">
-                      <div
-                        className={`
-                          p-3.5 rounded-2xl shrink-0 group-hover:scale-110 transition-transform duration-300
-                          ${isDark
-                            ? 'bg-slate-700/60 text-cyan-400 border border-slate-600'
-                            : 'bg-cyan-50 text-cyan-600 border border-cyan-100'
-                          }
-                        `}
-                      >
-                        <item.icon size={22} />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <span
-                          className={`
-                            text-xs font-semibold px-3 py-1 rounded-full
-                            ${isDark ? 'bg-cyan-500/15 text-cyan-400' : 'bg-cyan-50 text-cyan-700'}
-                          `}
-                        >
-                          {item.period}
-                        </span>
-                        <h4 className={`text-lg font-bold mt-3 mb-1.5 ${isDark ? 'text-white' : 'text-gray-900'}`}>
-                          {item.role}
-                        </h4>
-                        <p className={`font-medium mb-2.5 text-sm ${isDark ? 'text-cyan-400' : 'text-cyan-600'}`}>
-                          {item.company}
-                        </p>
-                        <p className={`text-sm leading-relaxed ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                          {item.description}
-                        </p>
-                      </div>
+                              <div className="flex items-start gap-4 md:gap-5">
+                                <div
+                                  className={`
+                                    p-3 md:p-3.5 rounded-2xl shrink-0 group-hover:scale-110 transition-transform duration-300
+                                    ${isDark
+                                      ? 'bg-teal-500/15 text-teal-400 border border-teal-500/30 shadow-lg shadow-teal-500/10'
+                                      : 'bg-teal-50 text-teal-600 border border-teal-100 shadow-md shadow-teal-500/10'
+                                    }
+                                  `}
+                                >
+                                  <ItemIcon size={22} />
+                                </div>
+                                <div className="flex-1 min-w-0">
+                                  <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
+                                    <span
+                                      className={`
+                                        text-xs font-semibold px-3 py-1 rounded-full
+                                        ${isDark ? 'bg-teal-500/15 text-teal-400' : 'bg-teal-50 text-teal-700'}
+                                      `}
+                                    >
+                                      {item.period}
+                                    </span>
+                                    {item.badge && (
+                                      <span className={`
+                                        text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1.5
+                                        ${isDark ? 'bg-green-500/15 text-green-400 border border-green-500/30' : 'bg-green-50 text-green-700 border border-green-200'}
+                                      `}>
+                                        <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+                                        {item.badge}
+                                      </span>
+                                    )}
+                                  </div>
+                                  <h4 className={`text-base md:text-lg font-bold mb-1 ${isDark ? 'text-white' : 'text-gray-900'}`}>
+                                    {item.role}
+                                  </h4>
+                                  <p className={`font-semibold mb-3 text-sm ${isDark ? 'text-teal-400' : 'text-teal-600'}`}>
+                                    {item.company}
+                                  </p>
+                                  <p className={`text-sm leading-relaxed ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+                                    {item.description}
+                                  </p>
+                                </div>
+                              </div>
+                            </Card>
+                          </motion.div>
+                        );
+                      })}
                     </div>
-                  </Card>
-                </motion.div>
-              ))}
-            </div>
+                  </div>
+                )}
+
+                {/* Education section */}
+                {(activeTab === 'all' || activeTab === 'education') && (
+                  <div>
+                    <h3
+                      className={`text-2xl md:text-3xl font-bold mb-6 flex items-center gap-3 ${isDark ? 'text-white' : 'text-gray-900'}`}
+                    >
+                      <Award className={`w-6 h-6 md:w-7 md:h-7 ${isDark ? 'text-cyan-400' : 'text-cyan-600'}`} />
+                      Education
+                    </h3>
+                    <div className="space-y-5">
+                      {educationItems.map((item, index) => (
+                        <motion.div
+                          key={index}
+                          initial={{ opacity: 0, x: -20 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 0.5, delay: index * 0.1 }}
+                          whileHover={{ y: -2 }}
+                        >
+                          <Card
+                            className={`
+                              p-6 md:p-7 transition-all duration-300 group relative overflow-hidden
+                              ${isDark
+                                ? 'bg-slate-800/60 border-slate-700/60 hover:border-cyan-500/40 hover:shadow-lg hover:shadow-cyan-500/5'
+                                : 'bg-white border-gray-200 hover:border-cyan-500/40 hover:shadow-lg hover:shadow-cyan-500/5'
+                              }
+                            `}
+                          >
+                            <div className="flex items-start gap-5">
+                              <div
+                                className={`
+                                  p-3.5 rounded-2xl shrink-0 group-hover:scale-110 transition-transform duration-300
+                                  ${isDark
+                                    ? 'bg-slate-700/60 text-cyan-400 border border-slate-600'
+                                    : 'bg-cyan-50 text-cyan-600 border border-cyan-100'
+                                  }
+                                `}
+                              >
+                                <item.icon size={22} />
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <span
+                                  className={`
+                                    text-xs font-semibold px-3 py-1 rounded-full
+                                    ${isDark ? 'bg-cyan-500/15 text-cyan-400' : 'bg-cyan-50 text-cyan-700'}
+                                  `}
+                                >
+                                  {item.period}
+                                </span>
+                                <h4 className={`text-lg font-bold mt-3 mb-1.5 ${isDark ? 'text-white' : 'text-gray-900'}`}>
+                                  {item.role}
+                                </h4>
+                                <p className={`font-medium mb-2.5 text-sm ${isDark ? 'text-cyan-400' : 'text-cyan-600'}`}>
+                                  {item.company}
+                                </p>
+                                <p className={`text-sm leading-relaxed ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+                                  {item.description}
+                                </p>
+                              </div>
+                            </div>
+                          </Card>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </motion.div>
+            </AnimatePresence>
           </div>
         </motion.div>
       </div>
