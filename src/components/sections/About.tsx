@@ -5,6 +5,7 @@ import Card from '../ui/Card';
 import Button from '../ui/Button';
 import { Download, Award, Calendar, Briefcase, FolderGit2, Sparkles, TrendingUp, Globe, Star } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
+import { handleResumeClick } from '../../utils/resume';
 
 const AnimatedCounter: React.FC<{ target: number; suffix?: string; prefix?: string }> = ({ target, suffix = '', prefix = '' }) => {
   const [count, setCount] = useState(0);
@@ -215,7 +216,7 @@ const About: React.FC = () => {
             <Button
               onClick={() => {
                 setActiveActionBtn('resume');
-                window.open('https://drive.google.com/file/d/1XKJvep5MuimcMNJ66Wn94HxIlpYnwelG/view?usp=sharing', '_blank');
+                handleResumeClick();
               }}
               variant="outline"
               icon={<Download size={18} />}

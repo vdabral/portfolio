@@ -340,16 +340,54 @@ const Projects: React.FC = () => {
                     </div>
 
                     {/* Action buttons */}
-                    <div className="flex gap-3 pt-1">
+                    <div className="flex gap-2 pt-1">
+                      {project.liveUrl && project.liveUrl !== '#' && (
+                        <motion.a
+                          href={project.liveUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={`
+                            flex-1 flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-xl font-semibold text-xs whitespace-nowrap
+                            transition-all duration-300 shadow-md
+                            ${theme === 'dark'
+                              ? 'bg-gradient-to-r from-teal-500 to-cyan-500 text-gray-900 hover:from-teal-400 hover:to-cyan-400'
+                              : 'bg-gradient-to-r from-teal-600 to-cyan-600 text-white hover:from-teal-500 hover:to-cyan-500'
+                            }
+                          `}
+                          whileHover={{ scale: 1.02, y: -2 }}
+                          whileTap={{ scale: 0.98 }}
+                        >
+                          <ExternalLink size={14} className="shrink-0" />
+                          <span>Live Link</span>
+                        </motion.a>
+                      )}
+
+                      <motion.button
+                        onClick={() => openProjectModal(project)}
+                        className={`
+                          flex-1 flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-xl font-medium text-xs whitespace-nowrap
+                          transition-all duration-300 border-2
+                          ${theme === 'dark'
+                            ? 'border-slate-600 text-gray-300 hover:border-teal-500 hover:text-teal-400 hover:bg-teal-500/10'
+                            : 'border-gray-300 text-gray-600 hover:border-teal-500 hover:text-teal-600 hover:bg-teal-50'
+                          }
+                        `}
+                        whileHover={{ scale: 1.02, y: -2 }}
+                        whileTap={{ scale: 0.98 }}
+                      >
+                        <Search size={14} className="shrink-0" />
+                        <span>Details</span>
+                      </motion.button>
+
                       {/* Code / Private Repo button */}
                       {project.isPrivateRepo ? (
                         <div className={`
-                          flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl font-medium text-xs
+                          flex-1 flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-xl font-medium text-xs whitespace-nowrap
                           border-2 cursor-not-allowed opacity-60
                           ${theme === 'dark' ? 'border-slate-600 text-gray-500' : 'border-gray-300 text-gray-400'}
                         `}>
-                          <Lock size={14} />
-                          Private Repo
+                          <Lock size={13} className="shrink-0" />
+                          <span>Private</span>
                         </div>
                       ) : (
                         <motion.a
@@ -357,7 +395,7 @@ const Projects: React.FC = () => {
                           target="_blank"
                           rel="noopener noreferrer"
                           className={`
-                            flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl font-medium text-sm
+                            flex-1 flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-xl font-medium text-xs whitespace-nowrap
                             transition-all duration-300 border-2
                             ${theme === 'dark'
                               ? 'border-slate-600 text-gray-300 hover:border-teal-500 hover:text-teal-400 hover:bg-teal-500/10'
@@ -367,27 +405,10 @@ const Projects: React.FC = () => {
                           whileHover={{ scale: 1.02, y: -2 }}
                           whileTap={{ scale: 0.98 }}
                         >
-                          <Github size={15} />
-                          Code
+                          <Github size={14} className="shrink-0" />
+                          <span>Code</span>
                         </motion.a>
                       )}
-
-                      <motion.button
-                        onClick={() => openProjectModal(project)}
-                        className={`
-                          flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl font-medium text-sm
-                          transition-all duration-300 shadow-lg
-                          ${theme === 'dark'
-                            ? 'bg-gradient-to-r from-teal-500 to-cyan-500 text-gray-900 hover:from-teal-400 hover:to-cyan-400'
-                            : 'bg-gradient-to-r from-teal-600 to-cyan-600 text-white hover:from-teal-500 hover:to-cyan-500'
-                          }
-                        `}
-                        whileHover={{ scale: 1.02, y: -2 }}
-                        whileTap={{ scale: 0.98 }}
-                      >
-                        <Search size={15} />
-                        Details
-                      </motion.button>
                     </div>
                   </div>
 

@@ -12,6 +12,7 @@ const categoryConfig: Record<string, { color: string; darkColor: string; glow: s
   integrations: { color: 'orange', darkColor: 'orange-400', glow: 'shadow-orange-500/20' },
   tools:        { color: 'gray',   darkColor: 'gray-400',   glow: 'shadow-gray-500/20'   },
   design:       { color: 'pink',   darkColor: 'pink-400',   glow: 'shadow-pink-500/20'   },
+  soft:         { color: 'emerald',darkColor: 'emerald-400',glow: 'shadow-emerald-500/20'},
 };
 
 const Skills: React.FC = () => {
@@ -26,6 +27,7 @@ const Skills: React.FC = () => {
     { id: 'integrations', label: 'Integrations'  },
     { id: 'tools',        label: 'Tools'         },
     { id: 'design',       label: 'Design'        },
+    { id: 'soft',         label: 'Soft Skills'   },
   ];
 
   const filteredSkills = activeCategory === 'all'
@@ -41,6 +43,7 @@ const Skills: React.FC = () => {
       integrations: 'from-orange-500 to-amber-500',
       tools:        'from-gray-500 to-slate-500',
       design:       'from-pink-500 to-rose-500',
+      soft:         'from-emerald-500 to-teal-500',
     };
     return map[catId] || 'from-teal-500 to-cyan-500';
   };
@@ -53,6 +56,7 @@ const Skills: React.FC = () => {
       integrations: 'from-orange-400 to-amber-400',
       tools:        'from-gray-400 to-slate-400',
       design:       'from-pink-400 to-rose-400',
+      soft:         'from-emerald-400 to-teal-400',
     };
     return map[category] || 'from-teal-400 to-cyan-400';
   };

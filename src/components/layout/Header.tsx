@@ -3,6 +3,8 @@ import { Menu, X, Moon, Sun, Code2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '../../context/ThemeContext';
 
+import { handleResumeClick } from '../../utils/resume';
+
 const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -43,10 +45,15 @@ const Header: React.FC = () => {
     { id: 'skills', label: 'Skills' },
     { id: 'projects', label: 'Projects' },
     { id: 'contact', label: 'Contact' },
+    { id: 'resume', label: 'Resume', isAction: true },
   ];
 
   const scrollToSection = (id: string) => {
     setMobileMenuOpen(false);
+    if (id === 'resume') {
+      handleResumeClick();
+      return;
+    }
     const element = document.getElementById(id);
     if (element) {
       const headerOffset = 80;

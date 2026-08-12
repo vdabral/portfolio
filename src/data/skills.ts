@@ -183,4 +183,42 @@ export const skillsData = [
     category: 'design',
     level: 75,
   },
+
+  // ─── Soft Skills ─────────────────────────────────────────────────────────
+  {
+    name: 'Problem Solving',
+    icon: 'https://www.vectorlogo.zone/logos/google/google-icon.svg',
+    category: 'soft',
+    level: 95,
+  },
+  {
+    name: 'Communication',
+    icon: 'https://www.vectorlogo.zone/logos/slack/slack-icon.svg',
+    category: 'soft',
+    level: 92,
+  },
+  {
+    name: 'Team Leadership',
+    icon: 'https://www.vectorlogo.zone/logos/trello/trello-icon.svg',
+    category: 'soft',
+    level: 88,
+  },
+  {
+    name: 'Adaptability',
+    icon: 'https://www.vectorlogo.zone/logos/notion/notion-icon.svg',
+    category: 'soft',
+    level: 90,
+  },
+  {
+    name: 'Time Management',
+    icon: 'https://www.vectorlogo.zone/logos/atlassian/atlassian-icon.svg',
+    category: 'soft',
+    level: 90,
+  },
+  {
+    name: 'Agile & Scrum',
+    icon: 'https://www.vectorlogo.zone/logos/jira/jira-icon.svg',
+    category: 'soft',
+    level: 88,
+  },
 ];

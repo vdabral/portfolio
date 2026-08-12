@@ -4,6 +4,7 @@ import { ArrowRight, Github, Linkedin, Download, Sparkles, Code, Coffee, Instagr
 import Button from '../ui/Button';
 import AnimatedBackground from '../ui/AnimatedBackground';
 import { useTheme } from '../../context/ThemeContext';
+import { handleResumeClick } from '../../utils/resume';
 
 const PHRASES = ['Full Stack Developer', 'Next.js Developer', 'React Developer', 'Node.js Developer', 'TypeScript Engineer'];
 
@@ -317,7 +318,7 @@ const Hero: React.FC = () => {
                 <Button
                   onClick={() => {
                     setActiveHeroBtn('resume');
-                    window.open('https://drive.google.com/file/d/1XKJvep5MuimcMNJ66Wn94HxIlpYnwelG/view?usp=sharing', '_blank');
+                    handleResumeClick();
                   }}
                   variant="outline"
                   size="lg"
