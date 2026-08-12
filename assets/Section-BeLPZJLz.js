@@ -1,4 +1,4 @@
-import{u as b,r as o,j as e}from"./index-SGxueSHt.js";const p=({id:d,title:r,subtitle:l,children:x,className:m="",fullHeight:f=!1})=>{const{theme:t}=b(),i=o.useRef(null),[n,u]=o.useState(!1);return o.useEffect(()=>{const a=i.current,s=new IntersectionObserver(([c])=>{c.isIntersecting&&(u(!0),s.unobserve(c.target))},{threshold:.08});return a&&s.observe(a),()=>{a&&s.unobserve(a)}},[]),e.jsx("section",{id:d,ref:i,className:`
+import{u as b,r as o,j as e}from"./index-Cn1O6sq5.js";const p=({id:d,title:r,subtitle:l,children:x,className:m="",fullHeight:f=!1})=>{const{theme:t}=b(),i=o.useRef(null),[n,u]=o.useState(!1);return o.useEffect(()=>{const a=i.current,s=new IntersectionObserver(([c])=>{c.isIntersecting&&(u(!0),s.unobserve(c.target))},{threshold:.08});return a&&s.observe(a),()=>{a&&s.unobserve(a)}},[]),e.jsx("section",{id:d,ref:i,className:`
         py-16 md:py-24
         ${f?"min-h-screen flex flex-col justify-center":""}
         ${m}
