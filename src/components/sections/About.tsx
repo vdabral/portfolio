@@ -173,7 +173,7 @@ const About: React.FC = () => {
             </div>
 
             {/* Currently at badge — inline, not overlapping neighboring content */}
-            <div
+            {/* <div
               className={`
                 absolute bottom-3 left-3 right-3 px-3.5 py-2 rounded-xl text-xs font-semibold shadow-lg border backdrop-blur-md
                 flex items-center gap-2
@@ -184,8 +184,8 @@ const About: React.FC = () => {
               `}
             >
               <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse shrink-0" />
-              <span className="truncate">Currently @ Mindrops Solutions</span>
-            </div>
+              {/* <span className="truncate">Currently @ Mindrops Solutions</span> */}
+            {/* </div> */}
           </motion.div>
 
           {/* Skill tags */}
