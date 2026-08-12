@@ -5,13 +5,13 @@ import Button from '../ui/Button';
 import AnimatedBackground from '../ui/AnimatedBackground';
 import { useTheme } from '../../context/ThemeContext';
 
+const PHRASES = ['Full Stack Developer', 'Next.js Developer', 'React Developer', 'Node.js Developer', 'TypeScript Engineer'];
+
 const Hero: React.FC = () => {
   const { theme } = useTheme();
   const [typedText, setTypedText] = useState('');
   const [currentPhrase, setCurrentPhrase] = useState(0);
   const [isTypingComplete, setIsTypingComplete] = useState(false);
-
-  const phrases = ['Full Stack Developer', 'MERN Stack Developer', 'React Developer', 'Problem Solver'];
 
   // Use refs to persist variables between renders
   const isDeleting = useRef(false);
@@ -19,7 +19,7 @@ const Hero: React.FC = () => {
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
-    const currentPhraseText = phrases[currentPhrase];
+    const currentPhraseText = PHRASES[currentPhrase];
 
     const handleType = () => {
       if (!isDeleting.current) {
@@ -44,7 +44,7 @@ const Hero: React.FC = () => {
 
         if (charIndex.current === 0) {
           isDeleting.current = false;
-          setCurrentPhrase((prev) => (prev + 1) % phrases.length);
+          setCurrentPhrase((prev) => (prev + 1) % PHRASES.length);
           setIsTypingComplete(true); // pause after deleting all
           return;
         }
@@ -58,7 +58,7 @@ const Hero: React.FC = () => {
     return () => {
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
     };
-  }, [currentPhrase, phrases]);
+  }, [currentPhrase]);
 
   const socialLinks = [
     { icon: Github, href: 'https://github.com/vdabral', label: 'GitHub' },
@@ -68,8 +68,8 @@ const Hero: React.FC = () => {
 
   return (
     <AnimatedBackground>
-      <section 
-        id="home" 
+      <section
+        id="home"
         className={`
           min-h-screen flex items-center justify-center relative overflow-hidden pt-20
           ${theme === 'dark' ? 'bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900' : 'bg-gradient-to-br from-gray-50 via-white to-gray-100'}
@@ -78,43 +78,43 @@ const Hero: React.FC = () => {
         {/* Floating elements */}
         <motion.div
           className={`absolute top-32 left-10 w-6 h-6 ${theme === 'dark' ? 'text-teal-400/30' : 'text-teal-600/30'}`}
-          animate={{ 
+          animate={{
             y: [0, -20, 0],
             rotate: [0, 180, 360]
           }}
-          transition={{ 
-            duration: 6, 
-            repeat: Infinity, 
-            ease: "easeInOut" 
+          transition={{
+            duration: 6,
+            repeat: Infinity,
+            ease: "easeInOut"
           }}
         >
           <Code className="w-full h-full" />
         </motion.div>
-        
+
         <motion.div
           className={`absolute top-52 right-16 w-5 h-5 ${theme === 'dark' ? 'text-cyan-400/30' : 'text-cyan-600/30'}`}
-          animate={{ 
+          animate={{
             y: [0, 15, 0],
             x: [0, 10, 0]
           }}
-          transition={{ 
-            duration: 4, 
-            repeat: Infinity, 
-            ease: "easeInOut" 
+          transition={{
+            duration: 4,
+            repeat: Infinity,
+            ease: "easeInOut"
           }}
         >
           <Sparkles className="w-full h-full" />
         </motion.div>
-        
+
         <motion.div
           className={`absolute bottom-40 left-20 w-4 h-4 ${theme === 'dark' ? 'text-blue-400/30' : 'text-blue-600/30'}`}
-          animate={{ 
+          animate={{
             rotate: [0, 360]
           }}
-          transition={{ 
-            duration: 8, 
-            repeat: Infinity, 
-            ease: "linear" 
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "linear"
           }}
         >
           <Coffee className="w-full h-full" />
@@ -123,7 +123,7 @@ const Hero: React.FC = () => {
         {/* Main content container */}
         <div className="container mx-auto px-4 py-8 z-10 max-w-6xl">
           <div className="flex flex-col items-center text-center space-y-8">
-            
+
             {/* Profile image section */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -138,42 +138,40 @@ const Hero: React.FC = () => {
               >
                 {/* Animated rings */}
                 <motion.div
-                  className={`absolute inset-0 rounded-full border-2 ${
-                    theme === 'dark' ? 'border-teal-400/30' : 'border-teal-600/30'
-                  }`}
+                  className={`absolute inset-0 rounded-full border-2 ${theme === 'dark' ? 'border-teal-400/30' : 'border-teal-600/30'
+                    }`}
                   animate={{ rotate: 360 }}
                   transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
                 />
                 <motion.div
-                  className={`absolute inset-2 rounded-full border border-dashed ${
-                    theme === 'dark' ? 'border-cyan-400/20' : 'border-cyan-600/20'
-                  }`}
+                  className={`absolute inset-2 rounded-full border border-dashed ${theme === 'dark' ? 'border-cyan-400/20' : 'border-cyan-600/20'
+                    }`}
                   animate={{ rotate: -360 }}
                   transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
                 />
-                
+
                 {/* Main image container */}
                 <div className={`
                   relative w-full h-full rounded-full overflow-hidden border-4 shadow-2xl
-                  ${theme === 'dark' 
-                    ? 'border-slate-700 shadow-teal-500/20' 
+                  ${theme === 'dark'
+                    ? 'border-slate-700 shadow-teal-500/20'
                     : 'border-white shadow-teal-600/20'
                   }
                 `}>
-                  <img 
-                    src="/portfolio/images/Test.JPG" 
-                    alt="Vaibhav Dabral" 
+                  <img
+                    src="/portfolio/images/Test.JPG"
+                    alt="Vaibhav Dabral"
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </div>
-                
+
                 {/* Status indicator */}
                 <motion.div
                   className={`
                     absolute bottom-4 right-4 w-6 h-6 rounded-full border-4 
-                    ${theme === 'dark' 
-                      ? 'bg-green-400 border-slate-900' 
+                    ${theme === 'dark'
+                      ? 'bg-green-400 border-slate-900'
                       : 'bg-green-500 border-white'
                     }
                   `}
@@ -182,7 +180,7 @@ const Hero: React.FC = () => {
                 />
               </motion.div>
             </motion.div>
-              
+
             {/* Name heading section */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -190,7 +188,7 @@ const Hero: React.FC = () => {
               transition={{ duration: 0.8, delay: 0.3 }}
               className="space-y-2"
             >
-              <motion.h1 
+              <motion.h1
                 className={`
                   text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight
                   ${theme === 'dark' ? 'text-white' : 'text-gray-900'}
@@ -200,8 +198,8 @@ const Hero: React.FC = () => {
                 <motion.span
                   className={`
                     relative inline-block bg-gradient-to-r bg-clip-text text-transparent
-                    ${theme === 'dark' 
-                      ? 'from-teal-400 via-cyan-400 to-blue-400' 
+                    ${theme === 'dark'
+                      ? 'from-teal-400 via-cyan-400 to-blue-400'
                       : 'from-teal-600 via-cyan-600 to-blue-600'
                     }
                   `}
@@ -209,11 +207,10 @@ const Hero: React.FC = () => {
                 >
                   Vaibhav Dabral
                   <motion.span
-                    className={`absolute bottom-0 left-0 w-full h-1 md:h-2 rounded-full ${
-                      theme === 'dark' 
-                        ? 'bg-gradient-to-r from-teal-400 to-cyan-400' 
+                    className={`absolute bottom-0 left-0 w-full h-1 md:h-2 rounded-full ${theme === 'dark'
+                        ? 'bg-gradient-to-r from-teal-400 to-cyan-400'
                         : 'bg-gradient-to-r from-teal-600 to-cyan-600'
-                    }`}
+                      }`}
                     initial={{ scaleX: 0 }}
                     animate={{ scaleX: 1 }}
                     transition={{ duration: 1, delay: 0.8 }}
@@ -236,7 +233,7 @@ const Hero: React.FC = () => {
                 `}
               >
                 I'm a{' '}
-                <motion.span 
+                <motion.span
                   className={`
                     font-bold ${theme === 'dark' ? 'text-teal-400' : 'text-teal-600'}
                   `}
@@ -255,7 +252,7 @@ const Hero: React.FC = () => {
                 </motion.span>
               </h2>
             </motion.div>
-            
+
             {/* Description section */}
             <motion.div
               className="max-w-3xl mx-auto space-y-4"
@@ -263,34 +260,34 @@ const Hero: React.FC = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.8 }}
             >
-              <p 
+              <p
                 className={`
                   text-lg md:text-xl lg:text-2xl leading-relaxed
                   ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}
                 `}
               >
-                Passionate <span className={`font-semibold ${theme === 'dark' ? 'text-teal-400' : 'text-teal-600'}`}>Full Stack Developer</span> specializing in 
-                <span className={`font-semibold ${theme === 'dark' ? 'text-cyan-400' : 'text-cyan-600'}`}> MERN stack</span> development.
+                <span className={`font-semibold ${theme === 'dark' ? 'text-teal-400' : 'text-teal-600'}`}>Full Stack Developer</span> with production experience in{' '}
+                <span className={`font-semibold ${theme === 'dark' ? 'text-cyan-400' : 'text-cyan-600'}`}>Next.js, React, Node.js &amp; TypeScript</span>.
               </p>
-              <p 
+              <p
                 className={`
                   text-base md:text-lg lg:text-xl
                   ${theme === 'dark' ? 'text-gray-500' : 'text-gray-500'}
                 `}
               >
-                Creating scalable web applications with modern technologies and best practices.
+                Building production-grade web apps across E-commerce, SaaS, Real Estate, CRM &amp; EdTech.
               </p>
             </motion.div>
 
             {/* Buttons section */}
-            <motion.div 
+            <motion.div
               className="flex flex-col sm:flex-row gap-4 md:gap-6 pt-4"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1.1 }}
             >
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Button 
+                <Button
                   onClick={() => {
                     const projectsSection = document.getElementById('projects');
                     if (projectsSection) {
@@ -313,11 +310,11 @@ const Hero: React.FC = () => {
                   </span>
                 </Button>
               </motion.div>
-              
+
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Button 
+                <Button
                   onClick={() => {
-                    window.open('https://drive.google.com/file/d/17oObQYYvwlCjF4knKvxprpAyiNOZWoOY/view?usp=sharing', '_blank');
+                    window.open('https://drive.google.com/file/d/1XKJvep5MuimcMNJ66Wn94HxIlpYnwelG/view?usp=sharing', '_blank');
                   }}
                   variant="outline"
                   size="lg"
@@ -333,9 +330,9 @@ const Hero: React.FC = () => {
                   Download Resume
                 </Button>
               </motion.div>
-              
+
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Button 
+                <Button
                   onClick={() => {
                     const contactSection = document.getElementById('contact');
                     if (contactSection) {
@@ -358,7 +355,7 @@ const Hero: React.FC = () => {
             </motion.div>
 
             {/* Social links section */}
-            <motion.div 
+            <motion.div
               className="flex gap-6 md:gap-8 pt-6"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -372,8 +369,8 @@ const Hero: React.FC = () => {
                   rel="noopener noreferrer"
                   className={`
                     relative p-3 md:p-4 rounded-2xl transition-all duration-300 group backdrop-blur-sm
-                    ${theme === 'dark' 
-                      ? 'text-gray-400 hover:text-white bg-slate-800/50 hover:bg-slate-700/80 border border-slate-700/50 hover:border-teal-500/50' 
+                    ${theme === 'dark'
+                      ? 'text-gray-400 hover:text-white bg-slate-800/50 hover:bg-slate-700/80 border border-slate-700/50 hover:border-teal-500/50'
                       : 'text-gray-600 hover:text-gray-900 bg-white/50 hover:bg-white/80 border border-gray-200/50 hover:border-teal-500/50'
                     }
                   `}

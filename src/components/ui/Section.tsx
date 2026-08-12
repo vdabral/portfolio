@@ -23,6 +23,7 @@ const Section: React.FC<SectionProps> = ({
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
+    const currentRef = sectionRef.current;
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -30,18 +31,16 @@ const Section: React.FC<SectionProps> = ({
           observer.unobserve(entry.target);
         }
       },
-      {
-        threshold: 0.1,
-      }
+      { threshold: 0.08 }
     );
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
+    if (currentRef) {
+      observer.observe(currentRef);
     }
 
     return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
+      if (currentRef) {
+        observer.unobserve(currentRef);
       }
     };
   }, []);
@@ -51,44 +50,80 @@ const Section: React.FC<SectionProps> = ({
       id={id}
       ref={sectionRef}
       className={`
-        py-16 md:py-24 
+        py-16 md:py-24
         ${fullHeight ? 'min-h-screen flex flex-col justify-center' : ''}
         ${className}
       `}
     >
       <div className="container mx-auto px-4">
         {(title || subtitle) && (
-          <div 
+          <div
             className={`
-              mb-12 md:mb-16 text-center
+              mb-14 md:mb-20 text-center
               transition-all duration-1000 ease-out transform
               ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}
             `}
           >
             {title && (
-              <h2 
-                className={`
-                  text-3xl md:text-4xl font-bold mb-4 
-                  ${theme === 'dark' ? 'text-white' : 'text-gray-900'}
-                `}
-              >
-                <span className={`relative inline-block ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+              <div className="flex flex-col items-center gap-4">
+                {/* Pill label above title */}
+                <div className={`
+                  inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-widest border
+                  ${theme === 'dark'
+                    ? 'bg-teal-500/10 text-teal-400 border-teal-500/20'
+                    : 'bg-teal-500/10 text-teal-700 border-teal-500/20'
+                  }
+                `}>
+                  <span className={`w-1.5 h-1.5 rounded-full ${theme === 'dark' ? 'bg-teal-400' : 'bg-teal-600'}`} />
                   {title}
-                  <span 
-                    className={`
-                      absolute bottom-0 left-0 w-full h-1 transform origin-left
-                      ${theme === 'dark' ? 'bg-teal-400' : 'bg-teal-600'}
-                      ${isVisible ? 'scale-x-100' : 'scale-x-0'}
-                      transition-transform duration-1000 ease-out delay-300
-                    `}
-                  ></span>
-                </span>
-              </h2>
+                </div>
+
+                {/* Main title with gradient highlight on last word */}
+                <h2
+                  className={`
+                    text-4xl md:text-5xl font-extrabold leading-tight
+                    ${theme === 'dark' ? 'text-white' : 'text-gray-900'}
+                  `}
+                >
+                  {(() => {
+                    const words = title.split(' ');
+                    const lastWord = words.pop();
+                    return (
+                      <>
+                        {words.join(' ')}{words.length > 0 ? ' ' : ''}
+                        <span className={`
+                          relative inline-block bg-gradient-to-r bg-clip-text text-transparent
+                          ${theme === 'dark' ? 'from-teal-400 via-cyan-400 to-blue-400' : 'from-teal-600 via-cyan-600 to-blue-600'}
+                        `}>
+                          {lastWord}
+                          <span
+                            className={`
+                              absolute bottom-0 left-0 h-1 rounded-full w-full origin-left
+                              bg-gradient-to-r
+                              ${theme === 'dark' ? 'from-teal-400 to-cyan-400' : 'from-teal-600 to-cyan-600'}
+                              ${isVisible ? 'scale-x-100' : 'scale-x-0'}
+                              transition-transform duration-1000 ease-out delay-500
+                            `}
+                          />
+                        </span>
+                      </>
+                    );
+                  })()}
+                </h2>
+
+                {/* Decorative divider */}
+                <div className="flex items-center gap-3">
+                  <div className={`h-px w-12 ${theme === 'dark' ? 'bg-teal-500/40' : 'bg-teal-500/30'}`} />
+                  <div className={`w-2 h-2 rounded-full ${theme === 'dark' ? 'bg-teal-400' : 'bg-teal-600'}`} />
+                  <div className={`h-px w-12 ${theme === 'dark' ? 'bg-teal-500/40' : 'bg-teal-500/30'}`} />
+                </div>
+              </div>
             )}
+
             {subtitle && (
-              <p 
+              <p
                 className={`
-                  text-lg max-w-2xl mx-auto
+                  mt-4 text-lg max-w-2xl mx-auto
                   ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}
                 `}
               >
@@ -97,7 +132,8 @@ const Section: React.FC<SectionProps> = ({
             )}
           </div>
         )}
-        <div 
+
+        <div
           className={`
             transition-all duration-1000 ease-out transform delay-300
             ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}

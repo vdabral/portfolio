@@ -1,4 +1,5 @@
 export const skillsData = [
+  // ─── Frontend ─────────────────────────────────────────────────────────────
   {
     name: 'HTML5',
     icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg',
@@ -18,23 +19,23 @@ export const skillsData = [
     level: 90,
   },
   {
+    name: 'TypeScript',
+    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg',
+    category: 'frontend',
+    level: 85,
+  },
+  {
     name: 'React.js',
     icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg',
     category: 'frontend',
     level: 90,
   },
   {
-    name: 'TypeScript',
-    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg',
+    name: 'Next.js',
+    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg',
     category: 'frontend',
-    level: 80,
+    level: 88,
   },
-  // {
-  //   name: 'Next.js',
-  //   icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg',
-  //   category: 'frontend',
-  //   level: 85,
-  // },
   {
     name: 'Tailwind CSS',
     icon: 'https://www.vectorlogo.zone/logos/tailwindcss/tailwindcss-icon.svg',
@@ -42,10 +43,16 @@ export const skillsData = [
     level: 90,
   },
   {
+    name: 'Redux',
+    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redux/redux-original.svg',
+    category: 'frontend',
+    level: 75,
+  },
+  {
     name: 'Chakra UI',
     icon: 'https://www.vectorlogo.zone/logos/chakra-ui/chakra-ui-icon.svg',
     category: 'frontend',
-    level: 90,
+    level: 85,
   },
   {
     name: 'Bootstrap',
@@ -53,6 +60,8 @@ export const skillsData = [
     category: 'frontend',
     level: 85,
   },
+
+  // ─── Backend ──────────────────────────────────────────────────────────────
   {
     name: 'Node.js',
     icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg',
@@ -66,20 +75,14 @@ export const skillsData = [
     level: 85,
   },
   {
-    name: 'MongoDB',
-    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg',
-    category: 'backend',
-    level: 85,
-  },
-  // {
-  //   name: 'MySQL',
-  //   icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg',
-  //   category: 'backend',
-  //   level: 75,
-  // },
-  {
     name: 'REST APIs',
     icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg',
+    category: 'backend',
+    level: 88,
+  },
+  {
+    name: 'JWT Auth',
+    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/json/json-original.svg',
     category: 'backend',
     level: 85,
   },
@@ -89,12 +92,54 @@ export const skillsData = [
     category: 'backend',
     level: 80,
   },
+
+  // ─── Database ─────────────────────────────────────────────────────────────
   {
-    name: 'Redux',
-    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redux/redux-original.svg',
-    category: 'frontend',
+    name: 'PostgreSQL',
+    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg',
+    category: 'database',
+    level: 82,
+  },
+  {
+    name: 'Prisma ORM',
+    icon: 'https://www.vectorlogo.zone/logos/prismaio/prismaio-icon.svg',
+    category: 'database',
+    level: 80,
+  },
+  {
+    name: 'MongoDB',
+    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg',
+    category: 'database',
+    level: 85,
+  },
+
+  // ─── Integrations ─────────────────────────────────────────────────────────
+  {
+    name: 'Razorpay',
+    icon: 'https://www.vectorlogo.zone/logos/razorpay/razorpay-icon.svg',
+    category: 'integrations',
+    level: 78,
+  },
+  {
+    name: 'Shiprocket',
+    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg',
+    category: 'integrations',
     level: 75,
   },
+  {
+    name: 'Cloudinary',
+    icon: 'https://www.vectorlogo.zone/logos/cloudinary/cloudinary-icon.svg',
+    category: 'integrations',
+    level: 80,
+  },
+  {
+    name: 'Google APIs',
+    icon: 'https://www.vectorlogo.zone/logos/google/google-icon.svg',
+    category: 'integrations',
+    level: 78,
+  },
+
+  // ─── Tools ────────────────────────────────────────────────────────────────
   {
     name: 'Git',
     icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg',
@@ -125,17 +170,12 @@ export const skillsData = [
     category: 'tools',
     level: 85,
   },
-  // {
-  //   name: 'Figma',
-  //   icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg',
-  //   category: 'design',
-  //   level: 80,
-  // },
+  // ─── Design ───────────────────────────────────────────────────────────────
   {
     name: 'Responsive Design',
     icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg',
     category: 'design',
-    level: 85,
+    level: 90,
   },
   {
     name: 'UI/UX Design',

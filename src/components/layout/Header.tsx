@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Moon, Sun, Code2, Sparkles } from 'lucide-react';
+import { Menu, X, Moon, Sun, Code2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '../../context/ThemeContext';
 
@@ -49,7 +49,14 @@ const Header: React.FC = () => {
     setMobileMenuOpen(false);
     const element = document.getElementById(id);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      const headerOffset = 80;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+      window.scrollTo({
+        top: Math.max(0, offsetPosition),
+        behavior: 'smooth',
+      });
     }
   };
 
@@ -147,8 +154,8 @@ const Header: React.FC = () => {
                 relative px-4 py-2 rounded-xl font-medium transition-all duration-300 group
                 ${activeSection === link.id 
                   ? `${theme === 'dark' 
-                      ? 'text-teal-400 bg-slate-800/50 border border-slate-700/50' 
-                      : 'text-teal-600 bg-teal-50/50 border border-teal-200/50'
+                      ? 'text-teal-400 bg-slate-800/50' 
+                      : 'text-teal-600 bg-teal-50/50'
                     }`
                   : `${theme === 'dark' 
                       ? 'text-gray-300 hover:text-white hover:bg-slate-800/30' 
@@ -293,19 +300,18 @@ const Header: React.FC = () => {
           >
             <nav className="container mx-auto px-4 py-6 space-y-2">
               {navLinks.map((link, index) => (
-                <motion.a
+                <motion.button
                   key={link.id}
-                  href={`#${link.id}`}
                   onClick={(e) => {
                     e.preventDefault();
                     scrollToSection(link.id);
                   }}
                   className={`
-                    flex items-center justify-between py-3 px-4 rounded-xl transition-all duration-300 group
+                    w-full flex items-center justify-between py-3 px-4 rounded-xl transition-all duration-300 group text-left
                     ${activeSection === link.id 
                       ? `${theme === 'dark' 
-                          ? 'bg-slate-800/70 text-teal-400 border border-slate-700/50' 
-                          : 'bg-teal-50/70 text-teal-600 border border-teal-200/50'
+                          ? 'bg-slate-800/70 text-teal-400' 
+                          : 'bg-teal-50/70 text-teal-600'
                         }`
                       : `${theme === 'dark' 
                           ? 'text-gray-300 hover:bg-slate-800/50 hover:text-white' 
@@ -317,7 +323,6 @@ const Header: React.FC = () => {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.3, delay: index * 0.1 }}
                   whileHover={{ x: 5 }}
-                  whileTap={{ scale: 0.98 }}
                 >
                   <span className="font-medium">{link.label}</span>
                   <motion.div
@@ -334,7 +339,7 @@ const Header: React.FC = () => {
                     }}
                     transition={{ duration: 0.2 }}
                   />
-                </motion.a>
+                </motion.button>
               ))}
             </nav>
           </motion.div>

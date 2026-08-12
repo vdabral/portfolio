@@ -117,18 +117,17 @@ const Footer: React.FC = () => {
               </div>
             </div>
             <p className={`
-              text-lg leading-relaxed mb-6 max-w-md
+              text-base leading-relaxed mb-4 max-w-md
               ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}
             `}>
-              Passionate about creating exceptional web experiences with modern technologies. 
-              Let's build something amazing together!
+              Experienced Full Stack Developer building production web applications across E-commerce, SaaS, Real Estate, CRM and EdTech. Let's build something amazing together!
             </p>
             
             {/* Location and availability */}
             <div className="flex items-center space-x-4 text-sm">
               <div className={`flex items-center space-x-2 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
                 <MapPin size={16} />
-                <span>India</span>
+                <span>Dehradun, India</span>
               </div>
               <div className="flex items-center space-x-2">
                 <motion.div
@@ -157,7 +156,7 @@ const Footer: React.FC = () => {
               Quick Links
             </h3>
             <ul className="space-y-3">
-              {quickLinks.map((link, index) => (
+              {quickLinks.map((link) => (
                 <motion.li key={link.label}>
                   <a
                     href={link.href}
@@ -229,7 +228,7 @@ const Footer: React.FC = () => {
 
         {/* Bottom section */}
         <div className={`
-          pt-8 border-t flex justify-center
+          pt-8 border-t flex flex-col items-center gap-4
           ${theme === 'dark' ? 'border-slate-800/50' : 'border-gray-200/50'}
         `}>
           {/* Scroll to top button */}
@@ -257,6 +256,14 @@ const Footer: React.FC = () => {
               <ArrowUp size={16} />
             </motion.div>
           </motion.button>
+
+          {/* Copyright */}
+          <p className={`text-xs text-center ${theme === 'dark' ? 'text-gray-600' : 'text-gray-400'}`}>
+            © {new Date().getFullYear()} Vaibhav Dabral. Built with{' '}
+            <span className={theme === 'dark' ? 'text-teal-500' : 'text-teal-600'}>React</span>,{' '}
+            <span className={theme === 'dark' ? 'text-teal-500' : 'text-teal-600'}>Vite</span> &amp;{' '}
+            <span className={theme === 'dark' ? 'text-teal-500' : 'text-teal-600'}>Framer Motion</span>. All rights reserved.
+          </p>
         </div>
 
         {/* Sparkle effects */}
